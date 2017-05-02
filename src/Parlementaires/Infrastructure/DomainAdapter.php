@@ -32,7 +32,13 @@ class DomainAdapter
 
 //        static::$sideEffects['emailNotifications'] = new EmailNotifications();
 
-        $domainEventsRecorder = new DomainEventsRecorder();
+        $eventStore = new FileBasedEventStore(
+            realpath(__DIR__ . '/../../../data/eventstore')
+        );
+
+        $domainEventsRecorder = new DomainEventsRecorder(
+            $eventStore
+        );
         $commandBus = static::makeCommandBus(
             new RéserveParlementaire(
                 $domainEventsRecorder

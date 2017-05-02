@@ -7,9 +7,19 @@ use Parlementaires\Domain\Event\Recorder;
 
 class DomainEventsRecorder implements Recorder
 {
+    private $eventStore;
+
+    public function __construct(EventStore $eventStore)
+    {
+        $this->eventStore = $eventStore;
+    }
+
     public function record(DomainEvent $event)
     {
-        // TODO Actually persist events
-        var_dump($event);
+        $domainMessage = DomainMessage::recordNow($event, [
+            'ip' => $_SERVER['REMOTE_ADDR'] ?? '',
+            'source' => $_ENV['PARL_SOURCE'] ?? ''
+        ]);
+        $this->eventStore->append($domainMessage);
     }
 }

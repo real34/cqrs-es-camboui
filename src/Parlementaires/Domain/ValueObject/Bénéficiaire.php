@@ -2,7 +2,9 @@
 
 namespace Parlementaires\Domain\ValueObject;
 
-class Bénéficiaire
+use Parlementaires\Domain\Serializable;
+
+class Bénéficiaire implements Serializable
 {
     private $nom;
     private $adresse;
@@ -34,5 +36,18 @@ class Bénéficiaire
     public function getLignesAdresse() : array
     {
         return explode("\n", $this->adresse);
+    }
+
+    public static function deserialize($data)
+    {
+        return new static($data['nom'], $data['adresse']);
+    }
+
+    public function serialize()
+    {
+        return [
+            'nom' => $this->getNom(),
+            'adresse' => $this->getAdresse(),
+        ];
     }
 }

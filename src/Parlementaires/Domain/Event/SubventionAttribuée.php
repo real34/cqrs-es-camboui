@@ -48,4 +48,26 @@ class SubventionAttribuée implements DomainEvent
     {
         return $this->descriptif;
     }
+
+    public static function deserialize($data)
+    {
+        return new static(
+            IdActeur::deserialize($data['id_acteur']),
+            Bénéficiaire::deserialize($data['bénéficiaire']),
+            Monnaie::deserialize($data['montant']),
+            IdProgramme::deserialize($data['id_programme']),
+            $data['descriptif']
+        );
+    }
+
+    public function serialize()
+    {
+        return [
+            'id_acteur' => $this->getIdActeur()->serialize(),
+            'bénéficiaire' => $this->getBénéficiaire()->serialize(),
+            'montant' => $this->getMontant()->serialize(),
+            'id_programme' => $this->getIdProgramme()->serialize(),
+            'descriptif' => $this->getDescriptif(),
+        ];
+    }
 }

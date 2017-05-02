@@ -34,6 +34,7 @@ $data = '[
     "ID_Acteur": "PA605963"
   }
 ]';
+$_ENV['PARL_SOURCE'] = 'hardcoded_data';
 
 $error = fopen('php://stderr', 'w+');
 $out = fopen('php://stdout', 'w+');

@@ -10,6 +10,9 @@ test: ## Run the whole testsuite
 spec: ## Run the whole testsuite to display a testdox agile spec
 	@vendor/bin/phpunit src/Parlementaires/ --color --testdox
 
+clear_event_store: ## Truncate the file based event store
+	@rm -f data/eventstore/*.json
+
 # Automatic documentation. See http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
 .DEFAULT_GOAL := help

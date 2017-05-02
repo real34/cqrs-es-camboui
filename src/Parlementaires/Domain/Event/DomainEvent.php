@@ -2,8 +2,9 @@
 
 namespace Parlementaires\Domain\Event;
 
+use Parlementaires\Domain\Serializable;
 
-interface DomainEvent
+interface DomainEvent extends Serializable
 {
 
 }

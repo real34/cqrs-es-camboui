@@ -2,7 +2,9 @@
 
 namespace Parlementaires\Domain\ValueObject;
 
-class IdActeur
+use Parlementaires\Domain\Serializable;
+
+class IdActeur implements Serializable
 {
     private $value;
 
@@ -25,5 +27,15 @@ class IdActeur
     public function getValue() : string
     {
         return $this->value;
+    }
+
+    public static function deserialize($value)
+    {
+        return new static($value['value']);
+    }
+
+    public function serialize()
+    {
+        return $this->getValue();
     }
 }
