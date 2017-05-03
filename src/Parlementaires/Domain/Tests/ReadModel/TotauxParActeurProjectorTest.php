@@ -4,7 +4,7 @@ namespace Parlementaires\Domain\Tests\ReadModel;
 
 use Parlementaires\Domain\Event\SubventionAttribuée;
 use Parlementaires\Domain\ReadModel\TotauxParActeurProjector;
-use Parlementaires\Domain\Tests\ReadModel\Support\InMemoryGenericRepository;
+use Parlementaires\Domain\Tests\ReadModel\Support\InMemoryTotauxRepository;
 use Parlementaires\Domain\ValueObject\Bénéficiaire;
 use Parlementaires\Domain\ValueObject\IdActeur;
 use Parlementaires\Domain\ValueObject\IdProgramme;
@@ -15,7 +15,7 @@ class TotauxParActeurProjectorTest extends TestCase
 {
     public function testLorsqueLaPremièreSubventionEstAttribuéeUneEntréeEstCréée()
     {
-        $repository = new InMemoryGenericRepository();
+        $repository = new InMemoryTotauxRepository();
 
         (new TotauxParActeurProjector($repository))
             ->handleSubventionAttribuée(
@@ -27,7 +27,7 @@ class TotauxParActeurProjectorTest extends TestCase
 
     public function testQuandUneSeuleSubventionAÉtéAttribuéeLeTotalEstCeluiDeLaSubvention()
     {
-        $repository = new InMemoryGenericRepository();
+        $repository = new InMemoryTotauxRepository();
 
         (new TotauxParActeurProjector($repository))
             ->handleSubventionAttribuée(
@@ -40,7 +40,7 @@ class TotauxParActeurProjectorTest extends TestCase
 
     public function testQuandDeuxSubventionsOntÉtéAttribuéesParDeuxActeursDifférentsLeTotalEstCeluiDeLaSubventionRespectivePourChacun()
     {
-        $repository = new InMemoryGenericRepository();
+        $repository = new InMemoryTotauxRepository();
 
         $SUT = new TotauxParActeurProjector($repository);
         array_map([$SUT, 'handleSubventionAttribuée'], [
@@ -61,7 +61,7 @@ class TotauxParActeurProjectorTest extends TestCase
 
     public function testQuandDeuxSubventionsOntÉtéAttribuéesParUnMêmeActeurLeTotalEstLaSommeDesMontants()
     {
-        $repository = new InMemoryGenericRepository();
+        $repository = new InMemoryTotauxRepository();
 
         $SUT = new TotauxParActeurProjector($repository);
         array_map([$SUT, 'handleSubventionAttribuée'], [

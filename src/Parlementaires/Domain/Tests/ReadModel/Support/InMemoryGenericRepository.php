@@ -6,7 +6,7 @@ use Parlementaires\Domain\ReadModel\GenericRepository;
 
 class InMemoryGenericRepository implements GenericRepository
 {
-    private $db = [];
+    protected $db = [];
 
     public function save($record)
     {

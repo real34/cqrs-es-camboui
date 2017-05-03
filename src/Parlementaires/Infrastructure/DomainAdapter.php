@@ -6,7 +6,7 @@ use Parlementaires\Domain\Command\AttribuerSubvention;
 use Parlementaires\Domain\CommandHandler\RéserveParlementaire;
 use Parlementaires\Domain\Event\SubventionAttribuée;
 use Parlementaires\Domain\ReadModel\TotauxParActeurProjector;
-use Parlementaires\Domain\Tests\ReadModel\Support\InMemoryGenericRepository;
+use Parlementaires\Domain\Tests\ReadModel\Support\InMemoryTotauxRepository;
 use SymfyolovelJS\CommandBus;
 use SymfyolovelJS\EventBus;
 
@@ -33,7 +33,7 @@ class DomainAdapter
         }
 
         // The InMemoryGenericRepository is not for production use, hence its "Tests" namespace ;)
-        static::$repositories['totauxRepository'] = new InMemoryGenericRepository();
+        static::$repositories['totauxRepository'] = new InMemoryTotauxRepository();
 
 //        static::$sideEffects['emailNotifications'] = new EmailNotifications();
 

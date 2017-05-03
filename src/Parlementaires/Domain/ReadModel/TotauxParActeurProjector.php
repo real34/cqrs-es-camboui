@@ -8,7 +8,7 @@ class TotauxParActeurProjector
 {
     private $totauxRepository;
 
-    public function __construct(GenericRepository $totauxRepository)
+    public function __construct(TotauxRepository $totauxRepository)
     {
         $this->totauxRepository = $totauxRepository;
     }
