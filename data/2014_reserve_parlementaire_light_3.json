@@ -1,0 +1,38 @@
+[
+  {
+    "Bénéficiaire": "Télé Bocal",
+    "Adresse": "Maison des associations\n1/3 rue Frédérique Lemaître\n75020 Paris",
+    "Descriptif": "Mise en œuvre d'ateliers de production locale proposant d’utiliser l'image comme une valorisation du travail des artistes",
+    "Montant": 5000,
+    "Nom": "BAUPIN",
+    "Prénom": "Denis",
+    "Département": "Paris",
+    "Groupe": "Ecolo",
+    "Programme budgétaire": "313-03",
+    "ID_Acteur": "PA609016"
+  },
+  {
+    "Bénéficiaire": "Mieux se déplacer à Bicyclette",
+    "Adresse": "MDB –\n37 boulevard Bourdon\n75004 Paris",
+    "Descriptif": "Réalisation des supports de communication pour faire connaître ses nouvelles dispositions sur l'usage de la bicyclette et diffusion",
+    "Montant": 4000,
+    "Nom": "BAUPIN",
+    "Prénom": "Denis",
+    "Département": "Paris",
+    "Groupe": "Ecolo",
+    "Programme budgétaire": "203-15",
+    "ID_Acteur": "PA609016"
+  },
+  {
+    "Bénéficiaire": "Festival du livre et de la presse d'écologie",
+    "Adresse": "6 cité de l’Ermitage\n75020 Paris",
+    "Descriptif": "Organisation du Festival du livre et de la presse d’écologie Promotion du livre et de l’écrit, information, sensibilisation et éducation à l’environnement",
+    "Montant": 3500,
+    "Nom": "BAUPIN",
+    "Prénom": "Denis",
+    "Département": "Paris",
+    "Groupe": "Ecolo",
+    "Programme budgétaire": "334-01",
+    "ID_Acteur": "PA609016"
+  }
+]

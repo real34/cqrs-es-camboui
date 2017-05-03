@@ -8,33 +8,40 @@ use Parlementaires\Domain\ValueObject\IdProgramme;
 use Parlementaires\Domain\ValueObject\Monnaie;
 use Parlementaires\Infrastructure\DomainAdapter;
 
-$data = '[
-  {
-    "Bénéficiaire": "Mieux se déplacer à Bicyclette",
-    "Adresse": "MDB –\n37 boulevard Bourdon\n75004 Paris",
-    "Descriptif": "Réalisation des supports de communication pour faire connaître ses nouvelles dispositions sur l\'usage de la bicyclette et diffusion",
-    "Montant": 4000,
-    "Nom": "BAUPIN",
-    "Prénom": "Denis",
-    "Département": "Paris",
-    "Groupe": "Ecolo",
-    "Programme budgétaire": "203-15",
-    "ID_Acteur": "PA609016"
-  },
-  {
-    "Bénéficiaire": "Fjt les Oiseaux",
-    "Adresse": "48, rue des Cras\n25000 Besançon",
-    "Descriptif": "implantation d’une plate-forme de compostage collectif accéléré",
-    "Montant": 4000,
-    "Nom": "ALAUZET",
-    "Prénom": "Éric",
-    "Département": "Doubs",
-    "Groupe": "Ecolo",
-    "Programme budgétaire": "113-07",
-    "ID_Acteur": "PA605963"
-  }
-]';
-$_ENV['PARL_SOURCE'] = 'hardcoded_data';
+$stdin = fopen('php://stdin', 'r+');
+$data = '';
+while(!feof($stdin)) {
+    $data .= fgets($stdin);
+}
+$_ENV['PARL_SOURCE'] = 'mass_cli_import';
+
+//$data = '[
+//  {
+//    "Bénéficiaire": "Mieux se déplacer à Bicyclette",
+//    "Adresse": "MDB –\n37 boulevard Bourdon\n75004 Paris",
+//    "Descriptif": "Réalisation des supports de communication pour faire connaître ses nouvelles dispositions sur l\'usage de la bicyclette et diffusion",
+//    "Montant": 4000,
+//    "Nom": "BAUPIN",
+//    "Prénom": "Denis",
+//    "Département": "Paris",
+//    "Groupe": "Ecolo",
+//    "Programme budgétaire": "203-15",
+//    "ID_Acteur": "PA609016"
+//  },
+//  {
+//    "Bénéficiaire": "Fjt les Oiseaux",
+//    "Adresse": "48, rue des Cras\n25000 Besançon",
+//    "Descriptif": "implantation d’une plate-forme de compostage collectif accéléré",
+//    "Montant": 4000,
+//    "Nom": "ALAUZET",
+//    "Prénom": "Éric",
+//    "Département": "Doubs",
+//    "Groupe": "Ecolo",
+//    "Programme budgétaire": "113-07",
+//    "ID_Acteur": "PA605963"
+//  }
+//]';
+//$_ENV['PARL_SOURCE'] = 'hardcoded_data';
 
 $error = fopen('php://stderr', 'w+');
 $out = fopen('php://stdout', 'w+');
@@ -63,7 +70,7 @@ foreach ($toImport as $i => $subvention) {
             $subvention['Descriptif']
         );
         $commandBus->handle($command);
-    } catch (\RuntimeException $e) {
+    } catch (\Exception $e) {
         fwrite(
             $error,
             sprintf('[%d] Erreur: %s' . PHP_EOL, $i, $e->getMessage())
