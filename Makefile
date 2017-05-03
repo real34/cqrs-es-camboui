@@ -16,6 +16,12 @@ start: ## Start a webserver for our awesome app
 clear_event_store: ## Truncate the file based event store
 	@rm -f data/eventstore/*.json
 
+docker_build: ## Build the Docker image
+	@docker build . -t cqrs-es-camboui:latest
+
+docker_run: docker_build ## Launch the web application in Docker
+	@docker run --rm -p 8080:8080 -e XDEBUG_CONFIG="remote_host=192.168.1.144 idekey=xdebug" cqrs-es-camboui:latest
+
 # Automatic documentation. See http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
 .DEFAULT_GOAL := help
