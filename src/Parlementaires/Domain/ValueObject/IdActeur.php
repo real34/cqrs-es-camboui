@@ -31,7 +31,7 @@ class IdActeur implements Serializable
 
     public static function deserialize($value)
     {
-        return new static($value['value']);
+        return new static($value);
     }
 
     public function serialize()
