@@ -22,7 +22,7 @@ class DomainAdapter
     private static $bootstraped = false;
     private static $commandBus;
     private static $eventBus;
-    private static $repositories;
+    private static $repositories = [];
     private static $isReplay = false;
     private static $sideEffects = [];
 
