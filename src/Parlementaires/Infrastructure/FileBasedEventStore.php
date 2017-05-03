@@ -26,11 +26,12 @@ class FileBasedEventStore implements EventStore
     private function buildFilePath(DomainMessage $message)
     {
         $id = count($this->allSortedFiles()) + 1;
+        $namespaceParts = explode('\\', $message->getType());
         return sprintf(
             '%s/%s_%s.json',
             $this->dirname,
             str_pad($id, 10, '0', STR_PAD_LEFT),
-            array_pop(explode('\\', $message->getType()))
+            array_pop($namespaceParts)
         );
     }
 
