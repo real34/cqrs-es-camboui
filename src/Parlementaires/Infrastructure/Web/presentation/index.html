@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Awesome Presentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+        @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+        body { font-family: 'Droid Serif'; }
+        h1, h2, h3 {
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: normal;
+        }
+        .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+</head>
+<body>
+<textarea id="source">
+
+class: center, middle
+
+# CQRS / ES
+
+<img src="img/logo-afup.png" height="300px" alt="Logo AFUP" />
+
+Les mains dans le camboui !
+
+@pierremartin
+
+<img src="img/occitech_logo_noir.png" width="150px" alt="Logo Occitech" />
+
+---
+
+# Au programme
+
+1. CQRS
+2. Event Sourcing
+3. L'application
+4. À vous de coder
+5. Débriefing
+
+---
+
+# CQRS
+
+--
+
+## **C**ommand **Q**uery (**R**esponsibility) **S**egregation
+
+--
+
+
+```php
+// Command
+public function save($data) {
+  $this->db->insert($data);
+  return $data; // <-- Nope!
+}
+```
+
+--
+
+```php
+// Query
+public function get($id) {
+  $this->id = $id; // <-- Nope!
+  return $this->db->first(['id' => $id]);
+}
+```
+--
+
+Appliqué à des classes entières
+
+---
+
+# Event Sourcing
+
+.center[<img src="img/cqrs-es.png" alt="CQRS/ES" height="500px" />]
+
+---
+
+# L'application
+
+Analyse de l'usage des Réserves Parlementaires
+
+--
+
+```bash
+$ git clone https://github.com/real34/cqrs-es-camboui
+```
+
+Voir le `README`, section `Lancement initial`
+
+---
+
+# Démo pas à pas
+
+... avec XDebug (cf `Dockerfile`)
+
+---
+
+# À vous de coder
+
+Voir le `README`, section `À compléter`
+
+---
+
+# Débriefing
+
+.center[<iframe src="//giphy.com/embed/12wRRjUwD2Dh2U" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>]
+
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+    var slideshow = remark.create();
+</script>
+</body>
+</html>
