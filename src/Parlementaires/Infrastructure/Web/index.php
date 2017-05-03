@@ -6,6 +6,14 @@ use Parlementaires\Infrastructure\DomainAdapter;
 DomainAdapter::bootstrap();
 /** @var \Parlementaires\Domain\ReadModel\TotauxRepository $totauxRepository */
 $totauxRepository = DomainAdapter::repository('totauxRepository');
+
+function lienFicheParlementaire($id) {
+    return sprintf(
+        '<a href="http://www2.assemblee-nationale.fr/deputes/fiche/OMC_%1$s">%1$s</a>',
+        $id
+    );
+}
+
 ?>
 <h1>Ma réserve parlementaire</h1>
 
@@ -19,14 +27,14 @@ $totauxRepository = DomainAdapter::repository('totauxRepository');
         <h3>Top 20</h3>
         <ul>
             <?php foreach ($totauxRepository->findTop(20) as $total) :?>
-                <li><?= sprintf('%s : %d€', $total['id'], $total['total_en_euros']); ?></li>
+                <li><?= sprintf('%s : %d€', lienFicheParlementaire($total['id']), $total['total_en_euros']); ?></li>
             <?php endforeach; ?>
         </ul>
 
         <h3>Flop 20</h3>
         <ul>
             <?php foreach ($totauxRepository->findFlop(20) as $total) :?>
-                <li><?= sprintf('%s : %d€', $total['id'], $total['total_en_euros']); ?></li>
+                <li><?= sprintf('%s : %d€', lienFicheParlementaire($total['id']), $total['total_en_euros']); ?></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
