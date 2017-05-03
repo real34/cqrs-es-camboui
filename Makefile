@@ -10,6 +10,9 @@ test: ## Run the whole testsuite
 spec: ## Run the whole testsuite to display a testdox agile spec
 	@vendor/bin/phpunit src/Parlementaires/ --color --testdox
 
+start: ## Start a webserver for our awesome app
+	@php -S 0.0.0.0:8080 -t src/Parlementaires/Infrastructure/Web
+
 clear_event_store: ## Truncate the file based event store
 	@rm -f data/eventstore/*.json
 

@@ -11,4 +11,5 @@ interface GenericRepository
     public function findAll(): array;
     public function count(): int;
     public function exists($id): bool;
+    public function truncate();
 }

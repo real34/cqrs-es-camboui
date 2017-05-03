@@ -39,4 +39,9 @@ class InMemoryGenericRepository implements GenericRepository
     {
         return array_key_exists($id, $this->db);
     }
+
+    public function truncate()
+    {
+        $this->db = [];
+    }
 }

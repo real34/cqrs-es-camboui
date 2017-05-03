@@ -25,12 +25,30 @@ class FileBasedEventStore implements EventStore
 
     private function buildFilePath(DomainMessage $message)
     {
-        $id = count(glob($this->dirname . '/*.json')) + 1;
+        $id = count($this->allSortedFiles()) + 1;
         return sprintf(
             '%s/%s_%s.json',
             $this->dirname,
             str_pad($id, 10, '0', STR_PAD_LEFT),
             array_pop(explode('\\', $message->getType()))
         );
+    }
+
+    public function allEvents(): \Iterator
+    {
+        foreach ($this->allSortedFiles() as $i => $fileName) {
+            $event = json_decode(file_get_contents($fileName), true);
+            yield $this->makeEventInstance($event['type'], $event['payload']);
+        }
+    }
+
+    private function allSortedFiles(): array
+    {
+        return glob($this->dirname . '/*.json');
+    }
+
+    private function makeEventInstance(string $type, $payload)
+    {
+        return call_user_func([$type, 'deserialize'], $payload);
     }
 }
