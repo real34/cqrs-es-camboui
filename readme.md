@@ -31,16 +31,26 @@ Ci-dessous les premières étapes pour commencer à se familiariser avec l'appli
 Afin de comprendre les concepts voici quelques tâches à accomplir :
 
 * Ajouter une nouvelle information dans la projection `TotauxParActeurProjector` (ex: nombre de subventions accordées)
-* Ajouter une nouvelle projection pour connaître la répartition selon les programmes budgétaires
+* Ajouter une nouvelle projection pour connaître la répartition par bénéficiaire
+* Pour mieux traquer les bénéficiaires, il est important de pouvoir fusionner les subventions reçues
+par deux structures.
+Implémenter la gestion et les conséquences de la commande `FusionnerBénéficiaires` sur la projection que
+vous venez de créer. L'intégrer à l'application grâce à l'action `fusionner_beneficiaires.php` qui permet de déclencher
+la commande métier.
+Note : le rapprochement que vous venez d'implémenter dans la projection peut en fait avoir plusieurs raisons différentes,
+cela pourrait donc également avoir été implémenté avec deux commandes distinctes
+`CorrigerFauteDeFrappe` et `RegrouperBénéficiaires`
+
+Pour approfondir les possibilités ouvertes, voici quelques tâches supplémentaires :
+
 * Implémenter `\Parlementaires\Domain\ValueObject\IdProgramme::guardAgainstInvalidValue()`
 de manière à détecter les données incorrectes, et/ou les corriger à la volée
 afin d'être plus tolérant aux erreurs
-* Ajouter la gestion de l'information "SubventionAnonyme" (commande, handler, évènement, import), ou simulez d'après le
-jeu de données une information "ParlementaireÉlu" avec les informations non exploitées
-* Que faudrait-il modifier pour pouvoir voir la répartition des subventions données par les Acteurs du Top 20 ? Facile à faire ?
+* Que faudrait-il modifier pour pouvoir voir la répartition des subventions données par les Acteurs du Top 20 ?
+Facile à faire ?
 * Actuellement les projections ne "vivent pas" en temps réel car nous
 utilisons un "InMemoryRepository": que faudrait-il faire pour ne rejouer
-l'event store que lorsque nécessaire? Implémentez cela avec un "FileBasedRepository"
+l'event store que lorsque nécessaire ? Implémentez cela avec un "FileBasedRepository"
 * (Avancé) En commençant par `\Parlementaires\Domain\CommandHandler\RéserveParlementaire::handleAttribuerSubvention()`
 et les ressources que vous trouverez en commentaire, ajoutez une couche
 de garantie de cohérence des données avec un agrégat racine (aggregate root)
@@ -81,7 +91,7 @@ Les jeux de données sont issus des sources suivantes :
 
 Merci à ceu⋅x⋅lles qui permettent de rendre ces données accessibles !
 
-## TODO (moi)
+## TODO (pour étendre le volume de données)
 
 * Licence https://twitter.com/pierremartin/status/851950047671570432
 * [ ] Corriger l'extraction des adresses du JSON de 2013 (à priori format incorrect pour jq, sinon passer au CSV)
