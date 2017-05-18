@@ -77,9 +77,10 @@ Pour aller plus loin, je vous recommande ces lectures :
     * Projection,
     * Side Effect,
     * Context Map
-* et enfin deux livres référence (mais la série sur le site Microsoft est bien plus digeste pour un début)
+* deux livres référence (mais la série sur le site Microsoft est bien plus digeste pour un début)
     * [Domain-Driven Design: Tackling Complexity in the Heart of Software](https://www.amazon.fr/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215/https://www.amazon.fr/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215/)
     * [Implementing Domain-Driven Design](https://www.amazon.fr/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577/)
+* un livre prometteur ? https://leanpub.com/anatomy-of-DDD
 
 ## Sources
 
