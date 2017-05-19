@@ -75,6 +75,22 @@ class TotauxParActeurProjectorTest extends TestCase
         $this->assertEquals(500 + 2500, $actual['total_en_euros']);
     }
 
+    public function testQuandDeuxSubventionsOntÉtéAttribuéesParUnMêmeActeurLeNombreDeSubventionsEstDe2()
+    {
+        $repository = new InMemoryTotauxRepository();
+
+        $SUT = new TotauxParActeurProjector($repository);
+        array_map([$SUT, 'handleSubventionAttribuée'], [
+            $this->makeSubventionAttribuée('PA607090', 500),
+            $this->makeSubventionAttribuée('PA607090', 2500),
+            $this->makeSubventionAttribuée('PA007', 4242)
+        ]);
+
+        $actual = $repository->get('PA607090');
+
+        $this->assertEquals(2, $actual['nombre_de_subventions']);
+    }
+
     private function makeSubventionAttribuée(string $idActeur, int $montant)
     {
         return new SubventionAttribuée(

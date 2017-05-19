@@ -21,10 +21,12 @@ class TotauxParActeurProjector
         if ($this->totauxRepository->exists($id)) {
             $total = $this->totauxRepository->get($id);
             $total['total_en_euros'] += $montant;
+            $total['nombre_de_subventions']++;
         } else {
             $total = [
                 GenericRepository::PK_FIELD => $id,
-                'total_en_euros' => $montant
+                'total_en_euros' => $montant,
+                'nombre_de_subventions' => 1
             ];
         }
 

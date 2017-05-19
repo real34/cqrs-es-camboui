@@ -27,14 +27,28 @@ function lienFicheParlementaire($id) {
         <h3>Top 20</h3>
         <ul>
             <?php foreach ($totauxRepository->findTop(20) as $total) :?>
-                <li><?= sprintf('%s : %d€', lienFicheParlementaire($total['id']), $total['total_en_euros']); ?></li>
+                <li>
+                    <?= sprintf(
+                        '%s : %d€ (%d subventions)',
+                        lienFicheParlementaire($total['id']),
+                        $total['total_en_euros'],
+                        $total['nombre_de_subventions']
+                    ); ?>
+                </li>
             <?php endforeach; ?>
         </ul>
 
         <h3>Flop 20</h3>
         <ul>
             <?php foreach ($totauxRepository->findFlop(20) as $total) :?>
-                <li><?= sprintf('%s : %d€', lienFicheParlementaire($total['id']), $total['total_en_euros']); ?></li>
+                <li>
+                    <?= sprintf(
+                        '%s : %d€ (%d subventions)',
+                        lienFicheParlementaire($total['id']),
+                        $total['total_en_euros'],
+                        $total['nombre_de_subventions']
+                    ); ?>
+                </li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
