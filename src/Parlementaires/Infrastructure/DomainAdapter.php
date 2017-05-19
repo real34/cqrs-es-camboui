@@ -5,7 +5,9 @@ namespace Parlementaires\Infrastructure;
 use Parlementaires\Domain\Command\AttribuerSubvention;
 use Parlementaires\Domain\CommandHandler\RéserveParlementaire;
 use Parlementaires\Domain\Event\SubventionAttribuée;
+use Parlementaires\Domain\ReadModel\RépartitionParBénéficiaireProjector;
 use Parlementaires\Domain\ReadModel\TotauxParActeurProjector;
+use Parlementaires\Domain\Tests\ReadModel\Support\InMemoryRépartitionRepository;
 use Parlementaires\Domain\Tests\ReadModel\Support\InMemoryTotauxRepository;
 use SymfyolovelJS\CommandBus;
 use SymfyolovelJS\EventBus;
@@ -34,6 +36,7 @@ class DomainAdapter
 
         // The InMemoryGenericRepository is not for production use, hence its "Tests" namespace ;)
         static::$repositories['totauxRepository'] = new InMemoryTotauxRepository();
+        static::$repositories['répartitionRepository'] = new InMemoryRépartitionRepository();
 
 //        static::$sideEffects['emailNotifications'] = new EmailNotifications();
 
@@ -51,7 +54,8 @@ class DomainAdapter
         );
 
         static::$eventBus = static::makeEventBus(
-            new TotauxParActeurProjector(static::$repositories['totauxRepository'])
+            new TotauxParActeurProjector(static::$repositories['totauxRepository']),
+            new RépartitionParBénéficiaireProjector(static::$repositories['répartitionRepository'])
         );
 
         static::$commandBus = $commandBus;
@@ -100,12 +104,14 @@ class DomainAdapter
     }
 
     private static function makeEventBus(
-        TotauxParActeurProjector $totauxParActeurProjector
+        TotauxParActeurProjector $totauxParActeurProjector,
+        RépartitionParBénéficiaireProjector $répartitionParBénéficiaireProjector
     ) : EventBus
     {
         $eventBus = EventBus::createWithHandlers([
             SubventionAttribuée::class => [
-                [$totauxParActeurProjector, 'handleSubventionAttribuée']
+                [$totauxParActeurProjector, 'handleSubventionAttribuée'],
+                [$répartitionParBénéficiaireProjector, 'handleSubventionAttribuée'],
             ]
         ]);
         return $eventBus;

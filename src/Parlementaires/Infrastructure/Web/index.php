@@ -6,6 +6,8 @@ use Parlementaires\Infrastructure\DomainAdapter;
 DomainAdapter::bootstrap();
 /** @var \Parlementaires\Domain\ReadModel\TotauxRepository $totauxRepository */
 $totauxRepository = DomainAdapter::repository('totauxRepository');
+/** @var \Parlementaires\Domain\ReadModel\RépartitionRepository $répartitionRepository */
+$répartitionRepository = DomainAdapter::repository('répartitionRepository');
 
 function lienFicheParlementaire($id) {
     return sprintf(
@@ -17,41 +19,67 @@ function lienFicheParlementaire($id) {
 ?>
 <h1>Ma réserve parlementaire</h1>
 
-<div>
-    <h2>Totaux par acteur</h2>
-    <?php if ($totauxRepository->count() === 0) : ?>
-        <p>Pas encore de données... importez moi ça !</p>
-    <?php else: ?>
-        <p><?= sprintf('%d acteurs ont attribué des subventions', $totauxRepository->count()); ?></p>
+<div style="display: flex; justify-content: space-around;">
+    <div>
+        <h2>Totaux par acteur</h2>
+        <?php if ($totauxRepository->count() === 0) : ?>
+            <p>Pas encore de données... importez moi ça !</p>
+        <?php else: ?>
+            <p><?= sprintf('%d acteurs ont attribué des subventions', $totauxRepository->count()); ?></p>
 
-        <h3>Top 20</h3>
-        <ul>
-            <?php foreach ($totauxRepository->findTop(20) as $total) :?>
-                <li>
-                    <?= sprintf(
-                        '%s : %d€ (%d subventions)',
-                        lienFicheParlementaire($total['id']),
-                        $total['total_en_euros'],
-                        $total['nombre_de_subventions']
-                    ); ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+            <h3>Top 20</h3>
+            <ul>
+                <?php foreach ($totauxRepository->findTop(20) as $total) :?>
+                    <li>
+                        <?= sprintf(
+                            '%s : %d€ (%d subventions)',
+                            lienFicheParlementaire($total['id']),
+                            $total['total_en_euros'],
+                            $total['nombre_de_subventions']
+                        ); ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
 
-        <h3>Flop 20</h3>
-        <ul>
-            <?php foreach ($totauxRepository->findFlop(20) as $total) :?>
-                <li>
-                    <?= sprintf(
-                        '%s : %d€ (%d subventions)',
-                        lienFicheParlementaire($total['id']),
-                        $total['total_en_euros'],
-                        $total['nombre_de_subventions']
-                    ); ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
+            <h3>Flop 20</h3>
+            <ul>
+                <?php foreach ($totauxRepository->findFlop(20) as $total) :?>
+                    <li>
+                        <?= sprintf(
+                            '%s : %d€ (%d subventions)',
+                            lienFicheParlementaire($total['id']),
+                            $total['total_en_euros'],
+                            $total['nombre_de_subventions']
+                        ); ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+    </div>
+
+    <div>
+        <h2>Totaux par bénéficiaire</h2>
+
+        <?php if ($répartitionRepository->count() === 0) : ?>
+            <p>Pas encore de données... importez moi ça !</p>
+        <?php else: ?>
+            <p><?= sprintf('%d bénéficiaires ont reçu des subventions', $répartitionRepository->count()); ?></p>
+
+            <h3>Top 100</h3>
+            <ul>
+                <?php foreach ($répartitionRepository->findTop(100) as $total) :?>
+                    <li>
+                        <?= sprintf(
+                            '%d€ : %s (%d subventions)',
+                            $total['total_en_euros'],
+                            $total['id']->getNom(),
+                            $total['nombre_de_subventions']
+                        ); ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+    </div>
 </div>
 
 <aside>

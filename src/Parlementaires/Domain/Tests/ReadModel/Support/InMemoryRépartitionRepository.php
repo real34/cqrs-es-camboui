@@ -76,4 +76,18 @@ class InMemoryRépartitionRepository implements RépartitionRepository
             $metadata['adresse']
         );
     }
+
+    public function findTop(int $limit): array
+    {
+        return $this->findWithSort(function($a, $b) {
+            return $b['total_en_euros'] <=> $a['total_en_euros'];
+        }, $limit);
+    }
+
+    private function findWithSort(callable $sort, int $limit): array
+    {
+        $all = $this->findAll();
+        usort($all, $sort);
+        return array_slice($all, 0, $limit);
+    }
 }

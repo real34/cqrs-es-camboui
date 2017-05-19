@@ -14,4 +14,6 @@ interface RépartitionRepository
     public function count(): int;
     public function exists(Bénéficiaire $id): bool;
     public function truncate();
+
+    public function findTop(int $top): array;
 }
